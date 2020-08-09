@@ -7,6 +7,37 @@
     <title>Finman</title>
   </head>
   <body>
+    <header>
+      <h1>Finman</h1>
+    </header>
+    <main>
+      <section class="user-input-section">
+        <div class="user-inputs">
+          <div class="category-selector">
+            <label for="transaction-type">Transaction Type</label>
+            <br />
+            <select name="transaction-type" id="transaction-type">
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </div>
+          <div class="amount-user-input">
+            <label for="amount">Amount</label>
+            <br />
+            <input type="number" id="amount">
+          </div>
+          <div class="description-user-input">
+            <label for="description">Description</label>
+            <br />
+            <input type="text" id="description">
+          </div>
+          <button>Add</button>
+        </div>
+      </section>
+      <section class="finance-display-section">
+
+      </section>
+    </main>
     <script src="./index.js"></script>
   </body>
 </html>

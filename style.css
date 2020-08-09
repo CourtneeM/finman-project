@@ -1,0 +1,21 @@
+/* line 1, scss/style.scss */
+* {
+  box-sizing: border-box; }
+
+/* line 5, scss/style.scss */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+/* line 11, scss/style.scss */
+header {
+  height: 10vh; }
+
+/* line 15, scss/style.scss */
+main {
+  display: flex;
+  height: 90vh; }
+  /* line 18, scss/style.scss */
+  main section {
+    border: 1px solid #000; }
