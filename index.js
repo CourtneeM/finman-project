@@ -1,50 +1,42 @@
-const finances = () => {
-  let incomeTracker = [];
-  let expenseTracker = [];
+class MonthlyFinances {
+  constructor() {
+    this.incomeTracker = [];
+    this.expenseTracker = [];
+  }
   
-  const income = (description, amount) => {
-    incomeTracker.push({description, amount});
+  income(description, amount) {
+    this.incomeTracker.push({description, amount});
   }
 
-  const deleteIncome = (index) => {
-    incomeTracker.splice(index, 1);
+  deleteIncome(index) {
+    this.incomeTracker.splice(index, 1);
   }
 
-  const totalIncome = () => {
+  totalIncome() {
     let totalIncome = 0;
-    incomeTracker.forEach((income) => {
+    this.incomeTracker.forEach((income) => {
       totalIncome += income.amount;
     });
     return totalIncome;
   }
 
-  const expenses = (description, amount) => {
-    expenseTracker.push({description, amount});
+  expenses(description, amount) {
+    this.expenseTracker.push({description, amount});
   }
 
-  const deleteExpense = (index) => {
-    expenseTracker.splice(index, 1);
+  deleteExpense(index) {
+    this.expenseTracker.splice(index, 1);
   }
 
-  const totalExpenses = () => {
+  totalExpenses() {
     let totalExpenses = 0;
-    expenseTracker.forEach((expense) => {
+    this.expenseTracker.forEach((expense) => {
       totalExpenses += expense.amount;
     });
     return totalExpenses;
   }
 
-  const balance = () => {
-    return totalIncome() - totalExpenses();
-  }
-
-  return {
-    income,
-    deleteIncome,
-    totalIncome,
-    expenses,
-    deleteExpense,
-    totalExpenses,
-    balance
+  balance() {
+    return this.totalIncome() - this.totalExpenses();
   }
 };
