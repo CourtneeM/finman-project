@@ -1,3 +1,5 @@
+let finances = {};
+
 class MonthlyFinances {
   constructor() {
     this.incomeTracker = [];
@@ -40,3 +42,14 @@ class MonthlyFinances {
     return this.totalIncome() - this.totalExpenses();
   }
 };
+
+function newFinancialYear(year) {
+  const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+  finances[year] = {};
+  months.forEach((month) => {
+    finances[year][month] = new MonthlyFinances;
+  });
+}
+
+newFinancialYear(2020);
+newFinancialYear(2021);
