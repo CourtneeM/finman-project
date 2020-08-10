@@ -21,6 +21,14 @@ main {
 .user-input-section {
   flex-basis: 500px;
   background-color: #0475b6; }
+  .user-input-section button {
+    margin-top: 5px;
+    padding: 8px;
+    color: #fff;
+    background-color: #353434;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; }
 
 .user-inputs {
   display: flex;
@@ -39,37 +47,42 @@ main {
     margin-top: 8px;
     padding: 3px; }
   .user-inputs button {
-    width: 250px;
-    margin-top: 5px;
-    padding: 8px;
-    color: #fff;
-    background-color: #353434;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer; }
+    width: 250px; }
 
 .financial-years {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 375px;
   margin: 50px auto 0;
   padding: 40px 0 50px;
   background-color: #fff;
   border-radius: 8px; }
-  .financial-years h2 {
-    margin-top: 0; }
-  .financial-years .select-financial-year {
-    display: flex;
-    align-items: center; }
-    .financial-years .select-financial-year select {
-      width: 100px;
-      margin: 0 10px;
-      padding: 3px; }
-    .financial-years .select-financial-year i {
-      font-size: 1.4rem;
+  .financial-years button {
+    margin: 30px auto 0;
+    width: 220px; }
+
+.select-year-month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  text-align: center; }
+  .select-year-month select {
+    width: 100px;
+    margin-top: 8px;
+    padding: 3px; }
+  .select-year-month .select-financial-year {
+    margin: 0 10px;
+    position: relative; }
+    .select-year-month .select-financial-year i {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.2rem;
+      color: #353434;
       cursor: pointer; }
+  .select-year-month .select-financial-month {
+    margin: 0 10px; }
 
 .finance-display-section {
   flex: 1; }

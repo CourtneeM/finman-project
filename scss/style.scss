@@ -26,6 +26,15 @@ main {
 .user-input-section {
   flex-basis: 500px;
   background-color: #0475b6;
+  button {
+    margin-top: 5px;
+    padding: 8px;
+    color: #fff;
+    background-color: #353434;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }
 
 .user-inputs {
@@ -48,41 +57,49 @@ main {
   }
   button {
     width: 250px;
-    margin-top: 5px;
-    padding: 8px;
-    color: #fff;
-    background-color: #353434;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
   }
 }
 
 .financial-years {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 375px;
   margin: 50px auto 0;
   padding: 40px 0 50px;
   background-color: #fff;
   border-radius: 8px;
-  h2 {
-    margin-top: 0;
+  button {
+    margin: 30px auto 0;
+    width: 220px;
   }
+}
+
+.select-year-month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  text-align: center;
+  select {
+    width: 100px;
+    margin-top: 8px;
+    padding: 3px;
+  }
+  
   .select-financial-year {
-    display: flex;
-    align-items: center;
-    select {
-      width: 100px;
-      margin: 0 10px;
-      padding: 3px;
-    }
+    margin: 0 10px;
+    position: relative;
     i {
-      font-size: 1.4rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.2rem;
+      color: #353434;
       cursor: pointer;
     }
+  }
+  .select-financial-month {
+    margin: 0 10px;
   }
 }
 
