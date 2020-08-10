@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/953969d2ff.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="./css/style.css">
     <title>Finman</title>
   </head>
@@ -13,7 +15,7 @@
     <main>
       <section class="user-input-section">
         <div class="user-inputs">
-          <div class="category-selector">
+          <div class="transaction-selector">
             <label for="transaction-type">Transaction Type</label>
             <br />
             <select name="transaction-type" id="transaction-type">
@@ -31,7 +33,14 @@
             <br />
             <input type="text" id="description">
           </div>
-          <button>Add</button>
+          <button id="add-transaction-btn">Add</button>
+        </div>
+        <div class="financial-years">
+          <h2>Financial Year</h2>
+          <div class="select-financial-year">
+            <select name="financial-year" id="financial-year"></select>
+            <i class="far fa-plus-square"></i>
+          </div>
         </div>
       </section>
       <section class="finance-display-section">

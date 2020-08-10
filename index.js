@@ -6,8 +6,8 @@ class MonthlyFinances {
     this.expenseTracker = [];
   }
   
-  income(description, amount) {
-    this.incomeTracker.push({description, amount});
+  income(amount, description) {
+    this.incomeTracker.push({amount, description});
   }
 
   deleteIncome(index) {
@@ -22,8 +22,8 @@ class MonthlyFinances {
     return totalIncome;
   }
 
-  expenses(description, amount) {
-    this.expenseTracker.push({description, amount});
+  expenses(amount, description) {
+    this.expenseTracker.push({amount, description});
   }
 
   deleteExpense(index) {
@@ -43,6 +43,19 @@ class MonthlyFinances {
   }
 };
 
+const userInputHandler = (() => {
+  const addBtn = document.getElementById('add-transaction-btn');
+  addBtn.addEventListener('click', () => {
+    const transactionType = document.querySelector('select').value;
+    const amount = document.getElementById('amount');
+    const description = document.getElementById('description');
+
+    finances[2020].january[transactionType](Number(amount.value), description.value);
+    amount.value = "";
+    description.value = "";
+  });
+})();
+
 function newFinancialYear(year) {
   const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
   finances[year] = {};
@@ -52,4 +65,3 @@ function newFinancialYear(year) {
 }
 
 newFinancialYear(2020);
-newFinancialYear(2021);

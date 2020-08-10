@@ -16,35 +16,59 @@ header {
 
 main {
   display: flex;
-  min-height: 92vh; }
+  height: 92.2vh; }
 
 .user-input-section {
   flex-basis: 500px;
   background-color: #0475b6; }
-  .user-input-section .user-inputs {
+
+.user-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  margin: 50px auto 0;
+  padding: 40px 0 50px;
+  background-color: #fff;
+  border-radius: 8px; }
+  .user-inputs div {
+    margin-bottom: 20px; }
+  .user-inputs select, .user-inputs input {
+    width: 250px;
+    margin-top: 8px;
+    padding: 3px; }
+  .user-inputs button {
+    width: 250px;
+    margin-top: 5px;
+    padding: 8px;
+    color: #fff;
+    background-color: #353434;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; }
+
+.financial-years {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  margin: 50px auto 0;
+  padding: 40px 0 50px;
+  background-color: #fff;
+  border-radius: 8px; }
+  .financial-years h2 {
+    margin-top: 0; }
+  .financial-years .select-financial-year {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 375px;
-    margin: 50px auto 0;
-    padding: 40px 0 50px;
-    background-color: #fff;
-    border-radius: 8px; }
-    .user-input-section .user-inputs div {
-      margin-bottom: 20px; }
-    .user-input-section .user-inputs select, .user-input-section .user-inputs input {
-      width: 250px;
-      margin-top: 8px;
+    align-items: center; }
+    .financial-years .select-financial-year select {
+      width: 100px;
+      margin: 0 10px;
       padding: 3px; }
-    .user-input-section .user-inputs button {
-      width: 250px;
-      margin-top: 5px;
-      padding: 8px;
-      color: #fff;
-      background-color: #353434;
-      border: none;
-      border-radius: 5px;
+    .financial-years .select-financial-year i {
+      font-size: 1.4rem;
       cursor: pointer; }
 
 .finance-display-section {
