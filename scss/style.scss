@@ -162,10 +162,26 @@ main {
   display: flex;
   justify-content: space-around;
   margin-top: 125px;
-  .income-breakdown, .expense-breakdown {
+  .transactions-container {
     width: 600px;
     height: 400px;
-    border: 1px solid #000;
+    & > div:nth-child(1) {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      p {
+        flex-basis: 150px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-align: center;
+      }
+      p:nth-child(2) {
+        flex: 1;
+      }
+    }
+  }
+  .income-breakdown, .expense-breakdown {
     & > div {
       display: flex;
       justify-content: space-around;
@@ -173,6 +189,9 @@ main {
       p, i {
         flex-basis: 150px;
         text-align: center;
+      }
+      p {
+        font-size: 1.1rem;
       }
       p:nth-child(2) {
         flex: 1;

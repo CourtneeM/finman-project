@@ -71,8 +71,8 @@ const userInputHandler = (() => {
     description.value = "";
   });
 
-  const submitYearMonthBtn = document.getElementById('submit-year-month-btn');
-  submitYearMonthBtn.addEventListener('click', () => {
+  const submitShowTransactionsBtn = document.getElementById('submit-year-month-btn');
+  submitShowTransactionsBtn.addEventListener('click', () => {
     displayHandler.monthYear();
     displayHandler.transactions();
   });
@@ -81,7 +81,8 @@ const userInputHandler = (() => {
   monthlyBreakdownSection.addEventListener('click', (e) => {
     let selectedYear = document.querySelector('.display-year').textContent;
     let selectedMonth = document.querySelector('.display-month').textContent;
-    let deleteTransaction = `delete${Array.from(e.target.parentNode.parentNode.parentNode.children)[0].textContent}`;
+    let transactionType = document.querySelector('.monthly-breakdown > div > h2').textContent;
+    let deleteTransaction = `delete${transactionType}`;
     if (e.target.classList.contains('delete-btn')) {
       let index = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
       finances[selectedYear][selectedMonth][deleteTransaction](index);
@@ -183,6 +184,6 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
-// style income and expense breakdown sections
 // make review year button work
 // add filters 
+// add local storage
