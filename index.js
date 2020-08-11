@@ -76,8 +76,8 @@ const displayHandler = (() => {
   const transactions = () => {
     const submitYearMonthBtn = document.getElementById('submit-year-month-btn');
     submitYearMonthBtn.addEventListener('click', () => {
-      const year = document.getElementById('financial-year').value;
-      const month = document.getElementById('financial-month').value;
+      const year = document.getElementById('show-transaction-year').value;
+      const month = document.getElementById('show-transaction-month').value;
 
       incomeAmount.textContent = `$${finances[year][month].totalIncome()}`;
       expensesAmount.textContent = `$${finances[year][month].totalExpenses()}`;
