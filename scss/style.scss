@@ -112,11 +112,26 @@ main {
   flex: 1;
   .accounts-overview {
     display: flex;
-    margin: 40px 0 0 100px;
-    & > div {
-      width: 300px;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px 0 0 50px;
+    .display-date {
+      visibility: hidden;
+      margin-right: 100px;
+      margin-left: 50px;
+      text-align: center;
+      h2 {
+        margin: 0;
+        font-size: 1.6em;
+      }
+      h2:nth-child(1) {
+        font-size: 2.4rem;
+      }
+    }
+    .income, .expense, .balance {
+      width: 250px;
       margin-right: 80px;
-      padding: 30px 80px;
+      padding: 30px;
       position: relative;
       font-weight: 600;
       text-align: center;
@@ -125,7 +140,7 @@ main {
       -moz-box-shadow: 6px 4px 28px 5px rgba(166,166,166,0.78);
       box-shadow: 6px 4px 28px 5px rgba(166,166,166,0.78);
       h2 {
-        font-size: 2.4rem;
+        font-size: 2rem;
       }
       p {
         width: 100%;
@@ -160,9 +175,12 @@ main {
       p:nth-child(2) {
         flex: 1;
       }
+      i {
+        cursor: pointer;
+      }
     }
     & > div:nth-child(even) {
-      background-color: #eee;
+      background-color: #ddd;
     }
   }
 }

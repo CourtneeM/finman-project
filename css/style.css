@@ -92,11 +92,23 @@ main {
   flex: 1; }
   .finance-display-section .accounts-overview {
     display: flex;
-    margin: 40px 0 0 100px; }
-    .finance-display-section .accounts-overview > div {
-      width: 300px;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px 0 0 50px; }
+    .finance-display-section .accounts-overview .display-date {
+      visibility: hidden;
+      margin-right: 100px;
+      margin-left: 50px;
+      text-align: center; }
+      .finance-display-section .accounts-overview .display-date h2 {
+        margin: 0;
+        font-size: 1.6em; }
+      .finance-display-section .accounts-overview .display-date h2:nth-child(1) {
+        font-size: 2.4rem; }
+    .finance-display-section .accounts-overview .income, .finance-display-section .accounts-overview .expense, .finance-display-section .accounts-overview .balance {
+      width: 250px;
       margin-right: 80px;
-      padding: 30px 80px;
+      padding: 30px;
       position: relative;
       font-weight: 600;
       text-align: center;
@@ -104,9 +116,9 @@ main {
       -webkit-box-shadow: 6px 4px 28px 5px rgba(166, 166, 166, 0.78);
       -moz-box-shadow: 6px 4px 28px 5px rgba(166, 166, 166, 0.78);
       box-shadow: 6px 4px 28px 5px rgba(166, 166, 166, 0.78); }
-      .finance-display-section .accounts-overview > div h2 {
-        font-size: 2.4rem; }
-      .finance-display-section .accounts-overview > div p {
+      .finance-display-section .accounts-overview .income h2, .finance-display-section .accounts-overview .expense h2, .finance-display-section .accounts-overview .balance h2 {
+        font-size: 2rem; }
+      .finance-display-section .accounts-overview .income p, .finance-display-section .accounts-overview .expense p, .finance-display-section .accounts-overview .balance p {
         width: 100%;
         padding: 8px;
         position: absolute;
@@ -133,8 +145,10 @@ main {
         text-align: center; }
       .monthly-breakdown .income-breakdown > div p:nth-child(2), .monthly-breakdown .expense-breakdown > div p:nth-child(2) {
         flex: 1; }
+      .monthly-breakdown .income-breakdown > div i, .monthly-breakdown .expense-breakdown > div i {
+        cursor: pointer; }
     .monthly-breakdown .income-breakdown > div:nth-child(even), .monthly-breakdown .expense-breakdown > div:nth-child(even) {
-      background-color: #eee; }
+      background-color: #ddd; }
 
 .income-text {
   background-color: #34ff01; }

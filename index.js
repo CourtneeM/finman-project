@@ -70,6 +70,13 @@ const userInputHandler = (() => {
     amount.value = "";
     description.value = "";
   });
+
+  const monthlyBreakdownSection = document.querySelector('.monthly-breakdown');
+  monthlyBreakdownSection.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      console.log(e.target.parentNode);
+    }
+  });
 })();
 
 const displayHandler = (() => {
@@ -108,7 +115,7 @@ const displayHandler = (() => {
           div.appendChild(p);
         }
         let trash = document.createElement('i');
-        trash.classList.add('far', 'fa-trash-alt');
+        trash.classList.add('far', 'fa-trash-alt', 'delete-btn');
         div.appendChild(trash);
         incomeBreakdown.appendChild(div);
       });
@@ -159,6 +166,7 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
-// add $ infront of amount in transaction list
+// make trash button work
 // style income and expense breakdown sections
 // make review year button work
+// add filters 
