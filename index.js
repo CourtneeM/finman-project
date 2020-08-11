@@ -47,12 +47,13 @@ const userInputHandler = (() => {
   const addYearBtn = document.getElementById('add-year-btn');
   addYearBtn.addEventListener('click', () => {
     const yearSelector = Array.from(document.querySelectorAll('.financial-year'));
+    const latestYear = Number(yearSelector[yearSelector.length - 1].value);
     yearSelector.forEach((selector) => {
-      const latestYear = selector[selector.length - 1];
       const option = document.createElement('option');
-      option.text = Number(latestYear.value) + 1;
+      option.text = latestYear + 1;
       selector.add(option);
     });
+    newFinancialYear((latestYear + 1));
   });
   
   const addBtn = document.getElementById('add-transaction-btn');
@@ -101,3 +102,4 @@ function newFinancialYear(year) {
 }
 
 newFinancialYear(2020);
+
