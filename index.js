@@ -64,6 +64,8 @@ const userInputHandler = (() => {
     const amount = document.getElementById('amount');
     const description = document.getElementById('description');
 
+    if (amount.value === "" || description.value === "") return;
+
     finances[year.value][month.value][transactionType](Number(amount.value), description.value);
     amount.value = "";
     description.value = "";
@@ -74,6 +76,7 @@ const displayHandler = (() => {
   let incomeAmount = document.querySelector('.income-amount');
   let expensesAmount = document.querySelector('.expenses-amount');
   let balanceAmount = document.querySelector('.balance-amount');
+
   const transactions = () => {
     const submitYearMonthBtn = document.getElementById('submit-year-month-btn');
     submitYearMonthBtn.addEventListener('click', () => {
@@ -83,6 +86,53 @@ const displayHandler = (() => {
       incomeAmount.textContent = `$${finances[year][month].totalIncome()}`;
       expensesAmount.textContent = `$${finances[year][month].totalExpenses()}`;
       balanceAmount.textContent = `$${finances[year][month].balance()}`;
+
+      const incomeBreakdown = document.querySelector('.income-breakdown');
+      const monthlyIncome = finances[year][month].incomeTracker;
+
+      if (incomeBreakdown.firstChild) {
+        while (incomeBreakdown.firstChild) {
+          incomeBreakdown.removeChild(incomeBreakdown.firstChild);
+        }
+      }
+
+      monthlyIncome.forEach((transaction) => {
+        let div = document.createElement('div');
+        for (let key in transaction) {
+          let p = document.createElement('p');
+          p.textContent = transaction[key];
+          div.appendChild(p);
+          
+        }
+        let trash = document.createElement('i');
+        trash.classList.add('far', 'fa-trash-alt');
+        div.appendChild(trash);
+        incomeBreakdown.appendChild(div);
+      });
+
+
+      const expenseBreakdown = document.querySelector('.expense-breakdown');
+      const monthlyExpenses = finances[year][month].expenseTracker;
+
+      if (expenseBreakdown.firstChild) {
+        while (expenseBreakdown.firstChild) {
+          expenseBreakdown.removeChild(expenseBreakdown.firstChild);
+        }
+      }
+
+      monthlyExpenses.forEach((transaction) => {
+        let div = document.createElement('div');
+        for (let key in transaction) {
+          let p = document.createElement('p');
+          p.textContent = transaction[key];
+          div.appendChild(p);
+          
+        }
+        let trash = document.createElement('i');
+        trash.classList.add('far', 'fa-trash-alt');
+        div.appendChild(trash);
+        expenseBreakdown.appendChild(div);
+      });
     });
   }
 
@@ -103,3 +153,5 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
+// style income and expense breakdown sections
+// make review year button work

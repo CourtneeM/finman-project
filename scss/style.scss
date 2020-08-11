@@ -149,6 +149,18 @@ main {
     width: 600px;
     height: 400px;
     border: 1px solid #000;
+    & > div {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      p, i {
+        flex-basis: 50px;
+        text-align: center;
+      }
+    }
+    & > div:nth-child(even) {
+      background-color: #eee;
+    }
   }
 }
 

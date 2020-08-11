@@ -124,6 +124,15 @@ main {
     width: 600px;
     height: 400px;
     border: 1px solid #000; }
+    .monthly-breakdown .income-breakdown > div, .monthly-breakdown .expense-breakdown > div {
+      display: flex;
+      justify-content: space-around;
+      align-items: center; }
+      .monthly-breakdown .income-breakdown > div p, .monthly-breakdown .income-breakdown > div i, .monthly-breakdown .expense-breakdown > div p, .monthly-breakdown .expense-breakdown > div i {
+        flex-basis: 50px;
+        text-align: center; }
+    .monthly-breakdown .income-breakdown > div:nth-child(even), .monthly-breakdown .expense-breakdown > div:nth-child(even) {
+      background-color: #eee; }
 
 .income-text {
   background-color: #34ff01; }
