@@ -22,7 +22,7 @@ class MonthlyFinances {
     return totalIncome;
   }
 
-  expenses(amount, description) {
+  expense(amount, description) {
     this.expenseTracker.push({amount, description});
   }
 
@@ -44,17 +44,53 @@ class MonthlyFinances {
 };
 
 const userInputHandler = (() => {
+  const addYearBtn = document.getElementById('add-year-btn');
+  addYearBtn.addEventListener('click', () => {
+    const yearSelector = Array.from(document.querySelectorAll('.financial-year'));
+    yearSelector.forEach((selector) => {
+      const latestYear = selector[selector.length - 1];
+      const option = document.createElement('option');
+      option.text = Number(latestYear.value) + 1;
+      selector.add(option);
+    });
+  });
+  
   const addBtn = document.getElementById('add-transaction-btn');
   addBtn.addEventListener('click', () => {
-    const transactionType = document.querySelector('select').value;
+    const year = document.getElementById('new-transaction-year');
+    const month = document.getElementById('new-transaction-month');
+    const transactionType = document.getElementById('transaction-type').value;
     const amount = document.getElementById('amount');
     const description = document.getElementById('description');
 
-    finances[2020].january[transactionType](Number(amount.value), description.value);
+    finances[year.value][month.value][transactionType](Number(amount.value), description.value);
     amount.value = "";
     description.value = "";
   });
 })();
+
+const displayHandler = (() => {
+  let incomeAmount = document.querySelector('.income-amount');
+  let expensesAmount = document.querySelector('.expenses-amount');
+  let balanceAmount = document.querySelector('.balance-amount');
+  const transactions = () => {
+    const submitYearMonthBtn = document.getElementById('submit-year-month-btn');
+    submitYearMonthBtn.addEventListener('click', () => {
+      const year = document.getElementById('financial-year').value;
+      const month = document.getElementById('financial-month').value;
+
+      incomeAmount.textContent = `$${finances[year][month].totalIncome()}`;
+      expensesAmount.textContent = `$${finances[year][month].totalExpenses()}`;
+      balanceAmount.textContent = `$${finances[year][month].balance()}`;
+    });
+  }
+
+  return {
+    transactions,
+
+  }
+})();
+displayHandler.transactions();
 
 function newFinancialYear(year) {
   const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];

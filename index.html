@@ -15,6 +15,34 @@
     <main>
       <section class="user-input-section">
         <div class="user-inputs">
+          <div class="select-year-month">
+            <div class="select-financial-year">
+              <label for="financial-year">Year</label>
+              <br />
+              <select name="financial-year" class="financial-year" id="new-transaction-year">
+                <option value="2020">2020</option>
+              </select>
+              <i class="far fa-plus-square" id="add-year-btn"></i>
+            </div>
+            <div class="select-financial-month">
+              <label for="financial-month">Month</label>
+              <br />
+              <select name="financial-month" class="financial-month" id="new-transaction-month">
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+            </div>
+          </div>
           <div class="transaction-selector">
             <label for="transaction-type">Transaction Type</label>
             <br />
@@ -36,22 +64,19 @@
           <button id="add-transaction-btn">Add</button>
         </div>
         <div class="financial-years">
+          <h2>Show Transactions</h2>
           <div class="select-year-month">
             <div class="select-financial-year">
               <label for="financial-year">Year</label>
               <br />
-              <select name="financial-year" id="financial-year">
+              <select name="financial-year" class="financial-year">
                 <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
               </select>
-              <i class="far fa-plus-square"></i>
             </div>
             <div class="select-financial-month">
               <label for="financial-month">Month</label>
               <br />
-              <select name="financial-month" id="financial-month">
+              <select name="financial-month" class="financial-month">
                 <option value="january">January</option>
                 <option value="february">February</option>
                 <option value="march">March</option>
@@ -75,15 +100,15 @@
       <section class="finance-display-section">
         <div class="accounts-overview">
           <div class="income">
-            <h2>$0</h2>
+            <h2 class="income-amount">$0</h2>
             <p class="income-text">Income</p>
           </div>
           <div class="expense">
-            <h2>$0</h2>
+            <h2 class="expenses-amount">$0</h2>
             <p class="expenses-text">Expenses</p>
           </div>
           <div class="balance">
-            <h2>$0</h2>
+            <h2 class="balance-amount">$0</h2>
             <p class="balance-text">Balance</p>
           </div>
         </div>
