@@ -129,8 +129,10 @@ main {
       justify-content: space-around;
       align-items: center; }
       .monthly-breakdown .income-breakdown > div p, .monthly-breakdown .income-breakdown > div i, .monthly-breakdown .expense-breakdown > div p, .monthly-breakdown .expense-breakdown > div i {
-        flex-basis: 50px;
+        flex-basis: 150px;
         text-align: center; }
+      .monthly-breakdown .income-breakdown > div p:nth-child(2), .monthly-breakdown .expense-breakdown > div p:nth-child(2) {
+        flex: 1; }
     .monthly-breakdown .income-breakdown > div:nth-child(even), .monthly-breakdown .expense-breakdown > div:nth-child(even) {
       background-color: #eee; }
 

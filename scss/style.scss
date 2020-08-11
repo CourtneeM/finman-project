@@ -154,8 +154,11 @@ main {
       justify-content: space-around;
       align-items: center;
       p, i {
-        flex-basis: 50px;
+        flex-basis: 150px;
         text-align: center;
+      }
+      p:nth-child(2) {
+        flex: 1;
       }
     }
     & > div:nth-child(even) {

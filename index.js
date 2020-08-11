@@ -100,9 +100,12 @@ const displayHandler = (() => {
         let div = document.createElement('div');
         for (let key in transaction) {
           let p = document.createElement('p');
-          p.textContent = transaction[key];
+          if (typeof transaction[key] === "number") {
+            p.textContent = `$${transaction[key]}`;
+          } else {
+            p.textContent = transaction[key];
+          }
           div.appendChild(p);
-          
         }
         let trash = document.createElement('i');
         trash.classList.add('far', 'fa-trash-alt');
@@ -124,9 +127,12 @@ const displayHandler = (() => {
         let div = document.createElement('div');
         for (let key in transaction) {
           let p = document.createElement('p');
-          p.textContent = transaction[key];
+          if (typeof transaction[key] === "number") {
+            p.textContent = `$${transaction[key]}`;
+          } else {
+            p.textContent = transaction[key];
+          }
           div.appendChild(p);
-          
         }
         let trash = document.createElement('i');
         trash.classList.add('far', 'fa-trash-alt');
@@ -153,5 +159,6 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
+// add $ infront of amount in transaction list
 // style income and expense breakdown sections
 // make review year button work
