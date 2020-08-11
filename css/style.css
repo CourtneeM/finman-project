@@ -97,6 +97,7 @@ main {
     margin: 40px 0 0 50px; }
     .finance-display-section .accounts-overview .display-date {
       visibility: hidden;
+      width: 175px;
       margin-right: 100px;
       margin-left: 50px;
       text-align: center; }
@@ -104,7 +105,8 @@ main {
         margin: 0;
         font-size: 1.6em; }
       .finance-display-section .accounts-overview .display-date h2:nth-child(1) {
-        font-size: 2.4rem; }
+        font-size: 2.4rem;
+        text-transform: capitalize; }
     .finance-display-section .accounts-overview .income, .finance-display-section .accounts-overview .expense, .finance-display-section .accounts-overview .balance {
       width: 250px;
       margin-right: 80px;
