@@ -87,10 +87,10 @@ const userInputHandler = (() => {
   monthlyBreakdownSection.addEventListener('click', (e) => {
     let selectedYear = document.querySelector('.display-year').textContent;
     let selectedMonth = document.querySelector('.display-month').textContent;
-    let transactionType = Array.from(e.target.parentNode.parentNode.parentNode.parentNode.children)[0].textContent;
+    let transactionType = Array.from(e.target.parentNode.parentNode.parentNode.children)[0].textContent;
     let deleteTransaction = `delete${transactionType}`;
     if (e.target.classList.contains('delete-btn')) {
-      let index = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
+      let index = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode) - 1;
       finances[selectedYear][selectedMonth][deleteTransaction](index);
       displayHandler.transactions();
     }
@@ -98,6 +98,16 @@ const userInputHandler = (() => {
 })();
 
 const displayHandler = (() => {
+  const resetTransactionDisplay = () => {
+    const transactionBreakdowns = Array.from(document.querySelectorAll('.transaction-breakdown'));
+    transactionBreakdowns.forEach((breakdown) => {
+      if (breakdown.firstChild) {
+        while (breakdown.firstChild) {
+          breakdown.removeChild(breakdown.firstChild);
+        }
+      }
+    });
+  };
 
   const monthYear = () => {
     const year = document.getElementById('show-transaction-year').value;
@@ -121,57 +131,51 @@ const displayHandler = (() => {
     expensesAmount.textContent = `$${finances[year][month].totalExpenses()}`;
     balanceAmount.textContent = `$${finances[year][month].balance()}`;
 
+    function displayTransactionHeading() {
+      let div = document.createElement('div');
+      let amountP = document.createElement('p');
+      let descriptionP = document.createElement('p');
+      let deleteP = document.createElement('p');
+      amountP.textContent = "Amount";
+      descriptionP.textContent = "Description";
+      deleteP.textContent = "Delete";
+      div.appendChild(amountP);
+      div.appendChild(descriptionP);
+      div.appendChild(deleteP);
+      return div;
+    }
+
+    function displayTransactions(transaction) {
+      let div = document.createElement('div');
+      for (let key in transaction) {
+        let p = document.createElement('p');
+        if (typeof transaction[key] === "number") {
+          p.textContent = `$${transaction[key]}`;
+        } else {
+          p.textContent = transaction[key];
+        }
+        div.appendChild(p);
+      }
+      let trash = document.createElement('i');
+      trash.classList.add('far', 'fa-trash-alt', 'delete-btn');
+      div.appendChild(trash);
+      return div;
+    }
+
+    resetTransactionDisplay();
+
     const incomeBreakdown = document.querySelector('.income-breakdown');
+    incomeBreakdown.appendChild(displayTransactionHeading());
     const monthlyIncome = finances[year][month].incomeTracker;
-
-    if (incomeBreakdown.firstChild) {
-      while (incomeBreakdown.firstChild) {
-        incomeBreakdown.removeChild(incomeBreakdown.firstChild);
-      }
-    }
-
     monthlyIncome.forEach((transaction) => {
-      let div = document.createElement('div');
-      for (let key in transaction) {
-        let p = document.createElement('p');
-        if (typeof transaction[key] === "number") {
-          p.textContent = `$${transaction[key]}`;
-        } else {
-          p.textContent = transaction[key];
-        }
-        div.appendChild(p);
-      }
-      let trash = document.createElement('i');
-      trash.classList.add('far', 'fa-trash-alt', 'delete-btn');
-      div.appendChild(trash);
-      incomeBreakdown.appendChild(div);
+      incomeBreakdown.appendChild(displayTransactions(transaction));
     });
-
-
+    
     const expenseBreakdown = document.querySelector('.expense-breakdown');
+    expenseBreakdown.appendChild(displayTransactionHeading());
     const monthlyExpenses = finances[year][month].expenseTracker;
-
-    if (expenseBreakdown.firstChild) {
-      while (expenseBreakdown.firstChild) {
-        expenseBreakdown.removeChild(expenseBreakdown.firstChild);
-      }
-    }
-
     monthlyExpenses.forEach((transaction) => {
-      let div = document.createElement('div');
-      for (let key in transaction) {
-        let p = document.createElement('p');
-        if (typeof transaction[key] === "number") {
-          p.textContent = `$${transaction[key]}`;
-        } else {
-          p.textContent = transaction[key];
-        }
-        div.appendChild(p);
-      }
-      let trash = document.createElement('i');
-      trash.classList.add('far', 'fa-trash-alt', 'delete-btn');
-      div.appendChild(trash);
-      expenseBreakdown.appendChild(div);
+      expenseBreakdown.appendChild(displayTransactions(transaction));
     });
   }
 
@@ -209,17 +213,6 @@ const displayHandler = (() => {
     expensesAmount.textContent = `$${yearlyExpenses}`;
     balanceAmount.textContent = `$${yearlyIncome - yearlyExpenses}`;
 
-    (function resetTransactionDisplay() {
-      const transactionBreakdowns = Array.from(document.querySelectorAll('.transaction-breakdown'));
-      transactionBreakdowns.forEach((breakdown) => {
-        if (breakdown.firstChild) {
-          while (breakdown.firstChild) {
-            breakdown.removeChild(breakdown.firstChild);
-          }
-        }
-      });
-    })();
-
     function displayTransactionHeading() {
       let div = document.createElement('div');
       let amountP = document.createElement('p');
@@ -232,8 +225,6 @@ const displayHandler = (() => {
     }
 
     function displayTransactions(totalType) {
-      const incomeBreakdown = document.querySelector('.income-breakdown');
-      const expenseBreakdown = document.querySelector('.expense-breakdown');
       for (let month in finances[year]) {
         let div = document.createElement('div');
         let p = document.createElement('p');
@@ -244,16 +235,20 @@ const displayHandler = (() => {
         monthP.textContent = month;
         monthP.style.textTransform = "capitalize";
         div.appendChild(monthP);
-        
         if (totalType === "totalIncome") {
-          incomeBreakdown.appendChild(displayTransactionHeading());
           incomeBreakdown.appendChild(div);
         } else {
-          expenseBreakdown.appendChild(displayTransactionHeading());
           expenseBreakdown.appendChild(div);
         }
       }
     }
+
+    resetTransactionDisplay();
+
+    const incomeBreakdown = document.querySelector('.income-breakdown');
+    const expenseBreakdown = document.querySelector('.expense-breakdown');
+    incomeBreakdown.appendChild(displayTransactionHeading());
+    expenseBreakdown.appendChild(displayTransactionHeading());
     displayTransactions("totalIncome");
     displayTransactions("totalExpenses");
   }
@@ -275,6 +270,5 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
-// generate transaction listing headings - month
 // add filters 
 // add local storage
