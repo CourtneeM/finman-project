@@ -181,33 +181,24 @@ const displayHandler = (() => {
 
   const reviewYear = () => {
     const year = document.getElementById('show-transaction-year').value;
-    let yearDisplay = document.querySelector('.display-year');
-    let monthDisplay = document.querySelector('.display-month');
-    let incomeAmount = document.querySelector('.income-amount');
-    let expensesAmount = document.querySelector('.expenses-amount');
-    let balanceAmount = document.querySelector('.balance-amount');
-
+    const yearDisplay = document.querySelector('.display-year');
+    const monthDisplay = document.querySelector('.display-month');
+    
     monthDisplay.style.visibility = "hidden";
     yearDisplay.style.visibility = "visible";
     yearDisplay.textContent = year;
     
-    const incomeTracker = [];
-    const expenseTracker = [];
-    for (let month in finances[year]) {
-      incomeTracker.push(finances[year][month].totalIncome());
-      expenseTracker.push(finances[year][month].totalExpenses());
-    };
-
     let yearlyIncome = 0;
     let yearlyExpenses = 0;
-    
-    incomeTracker.forEach((monthlyIncome) => {
-      yearlyIncome += monthlyIncome;
-    });
 
-    expenseTracker.forEach((monthlyExpense) => {
-      yearlyExpenses += monthlyExpense;
-    })
+    for (let month in finances[year]) {
+      yearlyIncome += finances[year][month].totalIncome();
+      yearlyExpenses += finances[year][month].totalExpenses();
+    };
+
+    let incomeAmount = document.querySelector('.income-amount');
+    let expensesAmount = document.querySelector('.expenses-amount');
+    let balanceAmount = document.querySelector('.balance-amount');
 
     incomeAmount.textContent = `$${yearlyIncome}`;
     expensesAmount.textContent = `$${yearlyExpenses}`;
@@ -270,5 +261,4 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
-// add filters 
 // add local storage
