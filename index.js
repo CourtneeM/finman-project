@@ -277,6 +277,5 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
-// make review year button work
 // add filters 
 // add local storage

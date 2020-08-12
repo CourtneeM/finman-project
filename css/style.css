@@ -131,10 +131,9 @@ main {
 .monthly-breakdown {
   display: flex;
   justify-content: space-around;
-  margin-top: 125px; }
+  margin: 125px 0; }
   .monthly-breakdown .transactions-container {
-    width: 600px;
-    height: 400px; }
+    width: 600px; }
     .monthly-breakdown .transactions-container > div:nth-child(1) {
       display: flex;
       justify-content: space-around;
