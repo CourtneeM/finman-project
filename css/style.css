@@ -7,7 +7,6 @@ body {
   font-family: sans-serif; }
 
 header {
-  min-height: 7.8vh;
   background-color: #353434; }
   header h1 {
     margin: 0 0 0 50px;
@@ -15,8 +14,7 @@ header {
     color: #eee; }
 
 main {
-  display: flex;
-  height: 92.2vh; }
+  display: flex; }
 
 .user-input-section {
   flex-basis: 500px;

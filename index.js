@@ -45,6 +45,10 @@ class MonthlyFinances {
 
 const userInputHandler = (() => {
   const addYearBtn = document.getElementById('add-year-btn');
+  const addBtn = document.getElementById('add-transaction-btn');
+  const submitShowTransactionsBtn = document.getElementById('submit-year-month-btn');
+  const monthlyBreakdownSection = document.querySelector('.monthly-breakdown');
+
   addYearBtn.addEventListener('click', () => {
     const yearSelector = Array.from(document.querySelectorAll('.financial-year'));
     const latestYear = Number(yearSelector[yearSelector.length - 1].value);
@@ -56,7 +60,6 @@ const userInputHandler = (() => {
     newFinancialYear((latestYear + 1));
   });
   
-  const addBtn = document.getElementById('add-transaction-btn');
   addBtn.addEventListener('click', () => {
     const year = document.getElementById('new-transaction-year');
     const month = document.getElementById('new-transaction-month');
@@ -71,17 +74,20 @@ const userInputHandler = (() => {
     description.value = "";
   });
 
-  const submitShowTransactionsBtn = document.getElementById('submit-year-month-btn');
   submitShowTransactionsBtn.addEventListener('click', () => {
     displayHandler.monthYear();
     displayHandler.transactions();
   });
 
-  const monthlyBreakdownSection = document.querySelector('.monthly-breakdown');
+  const reviewYearBtn = document.getElementById('review-year');
+  reviewYearBtn.addEventListener('click', () => {
+    displayHandler.reviewYear();
+  });
+
   monthlyBreakdownSection.addEventListener('click', (e) => {
     let selectedYear = document.querySelector('.display-year').textContent;
     let selectedMonth = document.querySelector('.display-month').textContent;
-    let transactionType = document.querySelector('.monthly-breakdown > div > h2').textContent;
+    let transactionType = Array.from(e.target.parentNode.parentNode.parentNode.parentNode.children)[0].textContent;
     let deleteTransaction = `delete${transactionType}`;
     if (e.target.classList.contains('delete-btn')) {
       let index = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
@@ -99,6 +105,7 @@ const displayHandler = (() => {
     let yearDisplay = document.querySelector('.display-year');
     let monthDisplay = document.querySelector('.display-month');
     monthDisplay.parentElement.style.visibility = "visible";
+    monthDisplay.style.visibility = "visible";
     monthDisplay.textContent = month;
     yearDisplay.textContent = year;
   }
@@ -168,9 +175,95 @@ const displayHandler = (() => {
     });
   }
 
+  const reviewYear = () => {
+    const year = document.getElementById('show-transaction-year').value;
+    let yearDisplay = document.querySelector('.display-year');
+    let monthDisplay = document.querySelector('.display-month');
+    let incomeAmount = document.querySelector('.income-amount');
+    let expensesAmount = document.querySelector('.expenses-amount');
+    let balanceAmount = document.querySelector('.balance-amount');
+
+    monthDisplay.style.visibility = "hidden";
+    yearDisplay.style.visibility = "visible";
+    yearDisplay.textContent = year;
+    console.log(yearDisplay);
+    
+    const incomeTracker = [];
+    const expenseTracker = [];
+    for (let month in finances[year]) {
+      incomeTracker.push(finances[year][month].totalIncome());
+      expenseTracker.push(finances[year][month].totalExpenses());
+    };
+
+    let yearlyIncome = 0;
+    let yearlyExpenses = 0;
+    
+    incomeTracker.forEach((monthlyIncome) => {
+      yearlyIncome += monthlyIncome;
+    });
+
+    expenseTracker.forEach((monthlyExpense) => {
+      yearlyExpenses += monthlyExpense;
+    })
+
+    incomeAmount.textContent = `$${yearlyIncome}`;
+    expensesAmount.textContent = `$${yearlyExpenses}`;
+    balanceAmount.textContent = `$${yearlyIncome - yearlyExpenses}`;
+
+    
+    const incomeBreakdown = document.querySelector('.income-breakdown');
+    if (incomeBreakdown.firstChild) {
+      while (incomeBreakdown.firstChild) {
+        incomeBreakdown.removeChild(incomeBreakdown.firstChild);
+      }
+    }
+
+    const expenseBreakdown = document.querySelector('.expense-breakdown');
+    if (expenseBreakdown.firstChild) {
+      while (expenseBreakdown.firstChild) {
+        expenseBreakdown.removeChild(expenseBreakdown.firstChild);
+      }
+    }
+
+    for (let month in finances[year]) {
+      // income breakdown section
+      let incomeDiv = document.createElement('div');
+      let incomeP = document.createElement('p');
+      incomeP.textContent = `$${finances[year][month].totalIncome()}`;
+      incomeDiv.appendChild(incomeP);
+      
+      let incomeMonthP = document.createElement('p');
+      incomeMonthP.textContent = month;
+      incomeMonthP.style.textTransform = "capitalize";
+      incomeDiv.appendChild(incomeMonthP);
+      
+      let incomeTrash = document.createElement('i');
+      incomeTrash.classList.add('far', 'fa-trash-alt', 'delete-btn');
+      incomeDiv.appendChild(incomeTrash);
+      incomeBreakdown.appendChild(incomeDiv);
+
+      // expense breakdown section
+      let expensesDiv = document.createElement('div');
+      let expensesP = document.createElement('p');
+      expensesP.textContent = `$${finances[year][month].totalExpenses()}`;
+      expensesDiv.appendChild(expensesP);
+      
+      let expensesMonthP = document.createElement('p');
+      expensesMonthP.textContent = month;
+      expensesMonthP.style.textTransform = "capitalize";
+      expensesDiv.appendChild(expensesMonthP);
+      
+      let expensesTrash = document.createElement('i');
+      expensesTrash.classList.add('far', 'fa-trash-alt', 'delete-btn');
+      expensesDiv.appendChild(expensesTrash);
+      expenseBreakdown.appendChild(expensesDiv);
+    } 
+  }
+
   return {
     monthYear,
-    transactions
+    transactions,
+    reviewYear
   }
 })();
 
