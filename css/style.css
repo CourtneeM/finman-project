@@ -18,6 +18,7 @@ main {
 
 .user-input-section {
   flex-basis: 500px;
+  min-height: 92.1vh;
   background-color: #0475b6; }
   .user-input-section button {
     margin-top: 5px;
@@ -146,6 +147,8 @@ main {
         text-align: center; }
       .monthly-breakdown .transactions-container > div:nth-child(1) p:nth-child(2) {
         flex: 1; }
+  .monthly-breakdown .income-breakdown > div:nth-child(1), .monthly-breakdown .expense-breakdown > div:nth-child(1) {
+    font-weight: bold; }
   .monthly-breakdown .income-breakdown > div, .monthly-breakdown .expense-breakdown > div {
     display: flex;
     justify-content: space-around;

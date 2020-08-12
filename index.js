@@ -186,7 +186,6 @@ const displayHandler = (() => {
     monthDisplay.style.visibility = "hidden";
     yearDisplay.style.visibility = "visible";
     yearDisplay.textContent = year;
-    console.log(yearDisplay);
     
     const incomeTracker = [];
     const expenseTracker = [];
@@ -210,54 +209,55 @@ const displayHandler = (() => {
     expensesAmount.textContent = `$${yearlyExpenses}`;
     balanceAmount.textContent = `$${yearlyIncome - yearlyExpenses}`;
 
-    
-    const incomeBreakdown = document.querySelector('.income-breakdown');
-    if (incomeBreakdown.firstChild) {
-      while (incomeBreakdown.firstChild) {
-        incomeBreakdown.removeChild(incomeBreakdown.firstChild);
+    (function resetTransactionDisplay() {
+      const transactionBreakdowns = Array.from(document.querySelectorAll('.transaction-breakdown'));
+      transactionBreakdowns.forEach((breakdown) => {
+        if (breakdown.firstChild) {
+          while (breakdown.firstChild) {
+            breakdown.removeChild(breakdown.firstChild);
+          }
+        }
+      });
+    })();
+      
+
+
+    // let incomeHeaderDiv = document.createElement('div');
+    // let expensesHeaderDiv = document.createElement('div');
+    // let amountP = document.createElement('p');
+    // let descriptionP = document.createElement('p');
+    // amountP.textContent = "Amount";
+    // descriptionP.textContent = "Description";
+    // incomeHeaderDiv.appendChild(amountP);
+    // incomeHeaderDiv.appendChild(descriptionP);
+    // incomeBreakdown.appendChild(incomeHeaderDiv);
+    // expensesHeaderDiv.appendChild(amountP);
+    // expenseBreakdown.appendChild(expensesHeaderDiv);
+
+    displayTransactions("totalIncome");
+    displayTransactions("totalExpenses");
+
+    function displayTransactions(totalType) {
+      const incomeBreakdown = document.querySelector('.income-breakdown');
+      const expenseBreakdown = document.querySelector('.expense-breakdown');
+      for (let month in finances[year]) {
+        let div = document.createElement('div');
+        let p = document.createElement('p');
+        p.textContent = `$${finances[year][month][totalType]()}`;
+        div.appendChild(p);
+        
+        let monthP = document.createElement('p');
+        monthP.textContent = month;
+        monthP.style.textTransform = "capitalize";
+        div.appendChild(monthP);
+        
+        if (totalType === "totalIncome") {
+          incomeBreakdown.appendChild(div);
+        } else {
+          expenseBreakdown.appendChild(div);
+        }
       }
     }
-
-    const expenseBreakdown = document.querySelector('.expense-breakdown');
-    if (expenseBreakdown.firstChild) {
-      while (expenseBreakdown.firstChild) {
-        expenseBreakdown.removeChild(expenseBreakdown.firstChild);
-      }
-    }
-
-    for (let month in finances[year]) {
-      // income breakdown section
-      let incomeDiv = document.createElement('div');
-      let incomeP = document.createElement('p');
-      incomeP.textContent = `$${finances[year][month].totalIncome()}`;
-      incomeDiv.appendChild(incomeP);
-      
-      let incomeMonthP = document.createElement('p');
-      incomeMonthP.textContent = month;
-      incomeMonthP.style.textTransform = "capitalize";
-      incomeDiv.appendChild(incomeMonthP);
-      
-      let incomeTrash = document.createElement('i');
-      incomeTrash.classList.add('far', 'fa-trash-alt', 'delete-btn');
-      incomeDiv.appendChild(incomeTrash);
-      incomeBreakdown.appendChild(incomeDiv);
-
-      // expense breakdown section
-      let expensesDiv = document.createElement('div');
-      let expensesP = document.createElement('p');
-      expensesP.textContent = `$${finances[year][month].totalExpenses()}`;
-      expensesDiv.appendChild(expensesP);
-      
-      let expensesMonthP = document.createElement('p');
-      expensesMonthP.textContent = month;
-      expensesMonthP.style.textTransform = "capitalize";
-      expensesDiv.appendChild(expensesMonthP);
-      
-      let expensesTrash = document.createElement('i');
-      expensesTrash.classList.add('far', 'fa-trash-alt', 'delete-btn');
-      expensesDiv.appendChild(expensesTrash);
-      expenseBreakdown.appendChild(expensesDiv);
-    } 
   }
 
   return {

@@ -9,7 +9,6 @@ body {
 }
 
 header {
-  //min-height: 7.8vh;
   background-color: #353434;
   h1 {
     margin: 0 0 0 50px;
@@ -24,6 +23,7 @@ main {
 
 .user-input-section {
   flex-basis: 500px;
+  min-height: 92.1vh;
   background-color: #0475b6;
   button {
     margin-top: 5px;
@@ -180,6 +180,9 @@ main {
     }
   }
   .income-breakdown, .expense-breakdown {
+    & > div:nth-child(1) {
+      font-weight: bold;
+    }
     & > div {
       display: flex;
       justify-content: space-around;
