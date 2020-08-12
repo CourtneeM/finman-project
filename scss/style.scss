@@ -161,49 +161,35 @@ main {
   display: flex;
   justify-content: space-around;
   margin: 125px 0;
-  .transactions-container {
+  & > div {
     width: 600px;
-    & > div:nth-child(1) {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      p {
-        flex-basis: 150px;
-        font-weight: bold;
-        font-size: 1.1rem;
-        text-align: center;
-      }
-      p:nth-child(2) {
-        flex: 1;
-      }
+  }
+}
+
+.income-breakdown, .expense-breakdown {
+  & > div:nth-child(1) {
+    font-weight: bold;
+  }
+  & > div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    p, i {
+      flex-basis: 150px;
+      text-align: center;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+    p:nth-child(2) {
+      flex: 1;
+    }
+    i {
+      cursor: pointer;
     }
   }
-  .income-breakdown, .expense-breakdown {
-    & > div:nth-child(1) {
-      font-weight: bold;
-    }
-    & > div {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      p, i {
-        flex-basis: 150px;
-        text-align: center;
-      }
-      p {
-        font-size: 1.1rem;
-      }
-      p:nth-child(2) {
-        flex: 1;
-      }
-      i {
-        cursor: pointer;
-      }
-    }
-    & > div:nth-child(even) {
-      background-color: #ddd;
-    }
+  & > div:nth-child(even) {
+    background-color: #ddd;
   }
 }
 

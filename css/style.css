@@ -133,37 +133,28 @@ main {
   display: flex;
   justify-content: space-around;
   margin: 125px 0; }
-  .monthly-breakdown .transactions-container {
+  .monthly-breakdown > div {
     width: 600px; }
-    .monthly-breakdown .transactions-container > div:nth-child(1) {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-bottom: 1px solid #ddd; }
-      .monthly-breakdown .transactions-container > div:nth-child(1) p {
-        flex-basis: 150px;
-        font-weight: bold;
-        font-size: 1.1rem;
-        text-align: center; }
-      .monthly-breakdown .transactions-container > div:nth-child(1) p:nth-child(2) {
-        flex: 1; }
-  .monthly-breakdown .income-breakdown > div:nth-child(1), .monthly-breakdown .expense-breakdown > div:nth-child(1) {
-    font-weight: bold; }
-  .monthly-breakdown .income-breakdown > div, .monthly-breakdown .expense-breakdown > div {
-    display: flex;
-    justify-content: space-around;
-    align-items: center; }
-    .monthly-breakdown .income-breakdown > div p, .monthly-breakdown .income-breakdown > div i, .monthly-breakdown .expense-breakdown > div p, .monthly-breakdown .expense-breakdown > div i {
-      flex-basis: 150px;
-      text-align: center; }
-    .monthly-breakdown .income-breakdown > div p, .monthly-breakdown .expense-breakdown > div p {
-      font-size: 1.1rem; }
-    .monthly-breakdown .income-breakdown > div p:nth-child(2), .monthly-breakdown .expense-breakdown > div p:nth-child(2) {
-      flex: 1; }
-    .monthly-breakdown .income-breakdown > div i, .monthly-breakdown .expense-breakdown > div i {
-      cursor: pointer; }
-  .monthly-breakdown .income-breakdown > div:nth-child(even), .monthly-breakdown .expense-breakdown > div:nth-child(even) {
-    background-color: #ddd; }
+
+.income-breakdown > div:nth-child(1), .expense-breakdown > div:nth-child(1) {
+  font-weight: bold; }
+
+.income-breakdown > div, .expense-breakdown > div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center; }
+  .income-breakdown > div p, .income-breakdown > div i, .expense-breakdown > div p, .expense-breakdown > div i {
+    flex-basis: 150px;
+    text-align: center; }
+  .income-breakdown > div p, .expense-breakdown > div p {
+    font-size: 1.1rem; }
+  .income-breakdown > div p:nth-child(2), .expense-breakdown > div p:nth-child(2) {
+    flex: 1; }
+  .income-breakdown > div i, .expense-breakdown > div i {
+    cursor: pointer; }
+
+.income-breakdown > div:nth-child(even), .expense-breakdown > div:nth-child(even) {
+  background-color: #ddd; }
 
 .income-text {
   background-color: #34ff01; }

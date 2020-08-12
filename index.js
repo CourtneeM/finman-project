@@ -219,23 +219,17 @@ const displayHandler = (() => {
         }
       });
     })();
-      
 
-
-    // let incomeHeaderDiv = document.createElement('div');
-    // let expensesHeaderDiv = document.createElement('div');
-    // let amountP = document.createElement('p');
-    // let descriptionP = document.createElement('p');
-    // amountP.textContent = "Amount";
-    // descriptionP.textContent = "Description";
-    // incomeHeaderDiv.appendChild(amountP);
-    // incomeHeaderDiv.appendChild(descriptionP);
-    // incomeBreakdown.appendChild(incomeHeaderDiv);
-    // expensesHeaderDiv.appendChild(amountP);
-    // expenseBreakdown.appendChild(expensesHeaderDiv);
-
-    displayTransactions("totalIncome");
-    displayTransactions("totalExpenses");
+    function displayTransactionHeading() {
+      let div = document.createElement('div');
+      let amountP = document.createElement('p');
+      let descriptionP = document.createElement('p');
+      amountP.textContent = "Amount";
+      descriptionP.textContent = "Description";
+      div.appendChild(amountP);
+      div.appendChild(descriptionP);
+      return div;
+    }
 
     function displayTransactions(totalType) {
       const incomeBreakdown = document.querySelector('.income-breakdown');
@@ -252,12 +246,16 @@ const displayHandler = (() => {
         div.appendChild(monthP);
         
         if (totalType === "totalIncome") {
+          incomeBreakdown.appendChild(displayTransactionHeading());
           incomeBreakdown.appendChild(div);
         } else {
+          expenseBreakdown.appendChild(displayTransactionHeading());
           expenseBreakdown.appendChild(div);
         }
       }
     }
+    displayTransactions("totalIncome");
+    displayTransactions("totalExpenses");
   }
 
   return {
@@ -277,5 +275,6 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
+// generate transaction listing headings - month
 // add filters 
 // add local storage
