@@ -70,6 +70,8 @@ const userInputHandler = (() => {
     if (amount.value === "" || description.value === "") return;
 
     finances[year.value][month.value][transactionType](Number(amount.value), description.value);
+    localStorageHandler.saveTransactions(year.value, month.value, transactionType, amount.value, description.value);
+
     amount.value = "";
     description.value = "";
   });
@@ -251,6 +253,42 @@ const displayHandler = (() => {
   }
 })();
 
+const localStorageHandler = (() => {
+  const saveTransactions = (year, month, transactionType, amount, description) => {
+    let finances = {};
+    if (localStorage.getItem('finances') === null) {
+      finances = {};
+    } else {
+      finances = JSON.parse(localStorage.getItem('finances'));
+    }
+
+    if (finances[year] === undefined) {
+      const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+      finances[year] = {};
+      months.forEach((month) => {
+        finances[year][month] = new MonthlyFinances;
+      });
+    }
+    
+    finances[year][month][transactionType](Number(amount), description);
+    localStorage.setItem('finances', JSON.stringify(finances));
+  }
+
+  const displayTransactions = () => {
+
+  }
+
+  const deleteTransaction = () => {
+
+  }
+
+  return {
+    saveTransactions,
+    displayTransactions,
+    deleteTransaction
+  }
+})();
+
 function newFinancialYear(year) {
   const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
   finances[year] = {};
@@ -261,4 +299,7 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 
+
+
 // add local storage
+// responsive css
