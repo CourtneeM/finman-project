@@ -261,43 +261,13 @@ const localStorageHandler = (() => {
       localFinances = {};
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
-      const monthlyFinanceMethods = {
-        income: function(amount, description) {
-          this.incomeTracker.push({amount, description});
-        },
-        deleteIncome: function(index) {
-          this.incomeTracker.splice(index, 1);
-        },
-        totalIncome: function() {
-          let totalIncome = 0;
-          this.incomeTracker.forEach((income) => {
-            totalIncome += income.amount;
-          });
-          return totalIncome;
-        },
-        expense: function(amount, description) {
-          this.expenseTracker.push({amount, description});
-        },
-        deleteExpense: function(index) {
-          this.expenseTracker.splice(index, 1);
-        },
-        totalExpenses: function() {
-          let totalExpenses = 0;
-          this.expenseTracker.forEach((expense) => {
-            totalExpenses += expense.amount;
-          });
-          return totalExpenses;
-        },
-        balance: function() {
-          return this.totalIncome() - this.totalExpenses();
-        }
-      }
       for (let month in localFinances[year]) {
         let incomeTracker = localFinances[year][month].incomeTracker;
         let expenseTracker = localFinances[year][month].expenseTracker;
-        localFinances[year][month] = Object.create(monthlyFinanceMethods);
+        console.log(incomeTracker, expenseTracker);
+        localFinances[year][month] = new MonthlyFinances;
         localFinances[year][month].incomeTracker = incomeTracker;
-        localFinances[year][month].expenseTracker = expenseTracker;        
+        localFinances[year][month].expenseTracker = expenseTracker;     
       }
     }
     if (localFinances[year] === undefined) {
@@ -327,37 +297,6 @@ const localStorageHandler = (() => {
       localFinances = {};
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
-      const monthlyFinanceMethods = {
-        income: function(amount, description) {
-          this.incomeTracker.push({amount, description});
-        },
-        deleteIncome: function(index) {
-          this.incomeTracker.splice(index, 1);
-        },
-        totalIncome: function() {
-          let totalIncome = 0;
-          this.incomeTracker.forEach((income) => {
-            totalIncome += income.amount;
-          });
-          return totalIncome;
-        },
-        expense: function(amount, description) {
-          this.expenseTracker.push({amount, description});
-        },
-        deleteExpense: function(index) {
-          this.expenseTracker.splice(index, 1);
-        },
-        totalExpenses: function() {
-          let totalExpenses = 0;
-          this.expenseTracker.forEach((expense) => {
-            totalExpenses += expense.amount;
-          });
-          return totalExpenses;
-        },
-        balance: function() {
-          return this.totalIncome() - this.totalExpenses();
-        }
-      }
       //
       //
       // FIX THIS
