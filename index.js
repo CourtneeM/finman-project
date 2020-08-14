@@ -1,5 +1,6 @@
 let finances = {};
 
+
 class MonthlyFinances {
   constructor() {
     this.incomeTracker = [];
@@ -68,7 +69,6 @@ const userInputHandler = (() => {
     const description = document.getElementById('description');
 
     if (amount.value === "" || description.value === "") return;
-
     finances[year.value][month.value][transactionType](Number(amount.value), description.value);
     localStorageHandler.saveTransactions(year.value, month.value, transactionType, amount.value, description.value);
 
@@ -94,6 +94,7 @@ const userInputHandler = (() => {
     if (e.target.classList.contains('delete-btn')) {
       let index = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode) - 1;
       finances[selectedYear][selectedMonth][deleteTransaction](index);
+      localStorageHandler.deleteLocalTransaction(selectedYear, selectedMonth, deleteTransaction, index);
       displayHandler.transactions();
     }
   });
@@ -255,37 +256,130 @@ const displayHandler = (() => {
 
 const localStorageHandler = (() => {
   const saveTransactions = (year, month, transactionType, amount, description) => {
-    let finances = {};
-    if (localStorage.getItem('finances') === null) {
-      finances = {};
+    let localFinances = {};
+    if (localStorage.getItem('localFinances') === null) {
+      localFinances = {};
     } else {
-      finances = JSON.parse(localStorage.getItem('finances'));
+      localFinances = JSON.parse(localStorage.getItem('localFinances'));
+      const monthlyFinanceMethods = {
+        income: function(amount, description) {
+          this.incomeTracker.push({amount, description});
+        },
+        deleteIncome: function(index) {
+          this.incomeTracker.splice(index, 1);
+        },
+        totalIncome: function() {
+          let totalIncome = 0;
+          this.incomeTracker.forEach((income) => {
+            totalIncome += income.amount;
+          });
+          return totalIncome;
+        },
+        expense: function(amount, description) {
+          this.expenseTracker.push({amount, description});
+        },
+        deleteExpense: function(index) {
+          this.expenseTracker.splice(index, 1);
+        },
+        totalExpenses: function() {
+          let totalExpenses = 0;
+          this.expenseTracker.forEach((expense) => {
+            totalExpenses += expense.amount;
+          });
+          return totalExpenses;
+        },
+        balance: function() {
+          return this.totalIncome() - this.totalExpenses();
+        }
+      }
+      for (let month in localFinances[year]) {
+        let incomeTracker = localFinances[year][month].incomeTracker;
+        let expenseTracker = localFinances[year][month].expenseTracker;
+        localFinances[year][month] = Object.create(monthlyFinanceMethods);
+        localFinances[year][month].incomeTracker = incomeTracker;
+        localFinances[year][month].expenseTracker = expenseTracker;        
+      }
     }
-
-    if (finances[year] === undefined) {
+    if (localFinances[year] === undefined) {
       const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-      finances[year] = {};
+      localFinances[year] = {};
       months.forEach((month) => {
-        finances[year][month] = new MonthlyFinances;
+        localFinances[year][month] = new MonthlyFinances;
       });
     }
-    
-    finances[year][month][transactionType](Number(amount), description);
-    localStorage.setItem('finances', JSON.stringify(finances));
+    localFinances[year][month][transactionType](Number(amount), description);
+    localStorage.setItem('localFinances', JSON.stringify(localFinances));
+
   }
 
   const displayTransactions = () => {
-
+    let localFinances = {};
+    if (localStorage.getItem('localFinances') === null) {
+      localFinances = {};
+    } else {
+      localFinances = JSON.parse(localStorage.getItem('localFinances'));
+    }
   }
 
-  const deleteTransaction = () => {
+  const deleteLocalTransaction = (selectedYear, selectedMonth, deleteTransaction, index) => {
+    let localFinances = {};
+    if (localStorage.getItem('localFinances') === null) {
+      localFinances = {};
+    } else {
+      localFinances = JSON.parse(localStorage.getItem('localFinances'));
+      const monthlyFinanceMethods = {
+        income: function(amount, description) {
+          this.incomeTracker.push({amount, description});
+        },
+        deleteIncome: function(index) {
+          this.incomeTracker.splice(index, 1);
+        },
+        totalIncome: function() {
+          let totalIncome = 0;
+          this.incomeTracker.forEach((income) => {
+            totalIncome += income.amount;
+          });
+          return totalIncome;
+        },
+        expense: function(amount, description) {
+          this.expenseTracker.push({amount, description});
+        },
+        deleteExpense: function(index) {
+          this.expenseTracker.splice(index, 1);
+        },
+        totalExpenses: function() {
+          let totalExpenses = 0;
+          this.expenseTracker.forEach((expense) => {
+            totalExpenses += expense.amount;
+          });
+          return totalExpenses;
+        },
+        balance: function() {
+          return this.totalIncome() - this.totalExpenses();
+        }
+      }
+      //
+      //
+      // FIX THIS
+      //
+      //
+      for (let month in localFinances[year]) {
+        let incomeTracker = localFinances[year][month].incomeTracker;
+        let expenseTracker = localFinances[year][month].expenseTracker;
+        localFinances[year][month] = Object.create(monthlyFinanceMethods);
+        localFinances[year][month].incomeTracker = incomeTracker;
+        localFinances[year][month].expenseTracker = expenseTracker;        
+      }
+    }
 
+    localFinances[selectedYear][selectedMonth][deleteTransaction](index);
+    localStorage.setItem('localFinances', JSON.stringify(localFinances));
   }
 
   return {
     saveTransactions,
     displayTransactions,
-    deleteTransaction
+    deleteLocalTransaction
   }
 })();
 
