@@ -264,7 +264,6 @@ const localStorageHandler = (() => {
       for (let month in localFinances[year]) {
         let incomeTracker = localFinances[year][month].incomeTracker;
         let expenseTracker = localFinances[year][month].expenseTracker;
-        console.log(incomeTracker, expenseTracker);
         localFinances[year][month] = new MonthlyFinances;
         localFinances[year][month].incomeTracker = incomeTracker;
         localFinances[year][month].expenseTracker = expenseTracker;     
@@ -297,17 +296,12 @@ const localStorageHandler = (() => {
       localFinances = {};
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
-      //
-      //
-      // FIX THIS
-      //
-      //
-      for (let month in localFinances[year]) {
-        let incomeTracker = localFinances[year][month].incomeTracker;
-        let expenseTracker = localFinances[year][month].expenseTracker;
-        localFinances[year][month] = Object.create(monthlyFinanceMethods);
-        localFinances[year][month].incomeTracker = incomeTracker;
-        localFinances[year][month].expenseTracker = expenseTracker;        
+      for (let month in localFinances[selectedYear]) {
+        let incomeTracker = localFinances[selectedYear][month].incomeTracker;
+        let expenseTracker = localFinances[selectedYear][month].expenseTracker;
+        localFinances[selectedYear][month] = new MonthlyFinances;
+        localFinances[selectedYear][month].incomeTracker = incomeTracker;
+        localFinances[selectedYear][month].expenseTracker = expenseTracker;     
       }
     }
 
