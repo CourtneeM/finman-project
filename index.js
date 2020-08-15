@@ -69,8 +69,8 @@ const userInputHandler = (() => {
     const description = document.getElementById('description');
 
     if (amount.value === "" || description.value === "") return;
-    finances[year.value][month.value][transactionType](Number(amount.value), description.value);
     localStorageHandler.saveTransactions(year.value, month.value, transactionType, amount.value, description.value);
+    finances[year.value][month.value][transactionType](Number(amount.value), description.value);
 
     amount.value = "";
     description.value = "";
@@ -259,6 +259,7 @@ const localStorageHandler = (() => {
     let localFinances = {};
     if (localStorage.getItem('localFinances') === null) {
       localFinances = {};
+      newFinancialYear(2020);
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
       for (let month in localFinances[year]) {
@@ -282,11 +283,83 @@ const localStorageHandler = (() => {
   }
 
   const displayTransactions = () => {
+    const year = document.getElementById('show-transaction-year').value;
+    const yearDisplay = document.querySelector('.display-year');
+    const monthDisplay = document.querySelector('.display-month');
     let localFinances = {};
     if (localStorage.getItem('localFinances') === null) {
       localFinances = {};
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
+      newFinancialYear(2020);
+      for (let month in localFinances[year]) {
+        let incomeTracker = localFinances[year][month].incomeTracker;
+        let expenseTracker = localFinances[year][month].expenseTracker;
+
+        localFinances[year][month] = new MonthlyFinances;
+        localFinances[year][month].incomeTracker = incomeTracker;
+        localFinances[year][month].expenseTracker = expenseTracker;
+
+        finances[year][month].incomeTracker = incomeTracker;
+        finances[year][month].expenseTracker = expenseTracker;
+      }
+    }
+
+    monthDisplay.style.visibility = "hidden";
+    yearDisplay.style.visibility = "visible";
+    yearDisplay.textContent = year;
+    
+    let yearlyIncome = 0;
+    let yearlyExpenses = 0;
+
+    for (let month in localFinances[year]) {
+      yearlyIncome += localFinances[year][month].totalIncome();
+      yearlyExpenses += localFinances[year][month].totalExpenses();
+    };
+
+    let incomeAmount = document.querySelector('.income-amount');
+    let expensesAmount = document.querySelector('.expenses-amount');
+    let balanceAmount = document.querySelector('.balance-amount');
+
+    incomeAmount.textContent = `$${yearlyIncome}`;
+    expensesAmount.textContent = `$${yearlyExpenses}`;
+    balanceAmount.textContent = `$${yearlyIncome - yearlyExpenses}`;
+    
+    const incomeBreakdown = document.querySelector('.income-breakdown');
+    const expenseBreakdown = document.querySelector('.expense-breakdown');
+    incomeBreakdown.appendChild(displayTransactionHeading());
+    expenseBreakdown.appendChild(displayTransactionHeading());
+    displayTransactions("totalIncome");
+    displayTransactions("totalExpenses");
+
+    function displayTransactionHeading() {
+      let div = document.createElement('div');
+      let amountP = document.createElement('p');
+      let descriptionP = document.createElement('p');
+      amountP.textContent = "Amount";
+      descriptionP.textContent = "Description";
+      div.appendChild(amountP);
+      div.appendChild(descriptionP);
+      return div;
+    }
+
+    function displayTransactions(totalType) {
+      for (let month in localFinances[year]) {
+        let div = document.createElement('div');
+        let p = document.createElement('p');
+        p.textContent = `$${localFinances[year][month][totalType]()}`;
+        div.appendChild(p);
+        
+        let monthP = document.createElement('p');
+        monthP.textContent = month;
+        monthP.style.textTransform = "capitalize";
+        div.appendChild(monthP);
+        if (totalType === "totalIncome") {
+          incomeBreakdown.appendChild(div);
+        } else {
+          expenseBreakdown.appendChild(div);
+        }
+      }
     }
   }
 
@@ -324,9 +397,7 @@ function newFinancialYear(year) {
   });
 }
 
-newFinancialYear(2020);
+document.addEventListener('DOMContentLoaded', localStorageHandler.displayTransactions());
 
 
-
-// add local storage
 // responsive css
