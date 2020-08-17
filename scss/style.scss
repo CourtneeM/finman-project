@@ -14,7 +14,7 @@ header {
   align-items: center;
   background-color: #353434;
   h1 {
-    margin: 0 0 0 50px;
+    margin: 0 0 0 4%;
     padding: 20px 0;
     color: #eee;
   }
@@ -49,12 +49,19 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: 70%;
   max-width: 375px;
   margin: 50px auto 0;
   padding: 40px 0 50px;
   background-color: #fff;
   border-radius: 8px;
+  .fa-window-close {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
   .transaction-selector, .amount-user-input, .description-user-input {
     width: 70%;
     max-width: 250px;
@@ -80,7 +87,7 @@ main {
   flex-direction: column;
   width: 70%;
   max-width: 375px;
-  margin: 50px auto 0;
+  margin: 50px auto 40px;
   padding: 40px 0 50px;
   background-color: #fff;
   border-radius: 8px;
@@ -132,9 +139,6 @@ main {
     display: flex;
     align-items: center;
     margin: 40px 5px;
-    & > div {
-      flex: 0 0 20%;
-    }
     .display-date {
       flex-basis: 3%;
       margin: 0 5%;
@@ -150,6 +154,8 @@ main {
       }
     }
     .income, .expense, .balance {
+      flex: 0 0 20%;
+      min-width: 20%;
       margin-right: 4%;
       padding: 30px;
       position: relative;
@@ -237,7 +243,6 @@ main {
   }
   .financial-years {
     min-width: 200px;
-    margin-bottom: 40px;
     h2 {
       width: 200px;
     }
@@ -270,8 +275,9 @@ main {
         }
       }
       .income, .expense, .balance {
+        min-width: 130px;
         h2 {
-          font-size: 1.4rem;
+          font-size: 1.2rem;
         }
       }
     }
@@ -343,7 +349,7 @@ main {
         margin-right: 4%;
         h2 {
           margin: 10px;
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
         p {
           font-size: 0.8rem;
@@ -366,21 +372,29 @@ main {
   }
 }
 
-// Move side user inputs into drop down menus
+//
+// FIX - Using user-inputs X button hides it from all screen sizes
+//
+
 @media screen and (max-width: 700px) {
   header {
     padding: 0 10px;
     h1 {
+      margin-left: 1%;
       padding: 10px 0;
       font-size: 1.4rem;
     }
-    button {
-      display: inline-block;
-      padding: 5px 10px;
-      color: #353434;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .header-btns {
+      width: 210px;
+      button {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.6rem;
+        color: #353434;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
     }
   }
 
@@ -391,11 +405,17 @@ main {
   .user-input-section {
     flex-basis: 100%;
     min-width: 100%;
+    min-height: 100%;
   }
 
   .user-inputs {
+    display: none;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-top: 15px;
+    .fa-window-close {
+      display: block;
+    }
     .select-year-month {
       flex-direction: row;
       .select-financial-year {
@@ -411,24 +431,63 @@ main {
     .amount-user-input {
       margin-right: 15px;
     }
-    button 
-    {
+    button {
       flex-basis: 100%;
     }
   }
 
   .financial-years {
+    flex-direction: row;
+    align-items: center;
+    min-width: 90%;
+    margin: 15px auto;
+    padding: 10px 2px;
     .select-year-month {
       flex-direction: row;
+      flex-basis: 40%;
       .select-financial-year {
+        width: 60px;
         margin-bottom: 0;
       }
+      .select-financial-month {
+        width: 100px;
+      }
+    }
+    h2 {
+      display: none;
+    }
+    button {
+      flex-basis: 40%;
+      margin-top: 0;
+      margin-right: 5px;
     }
     #review-year {
       display: none;
     }
   }
 
+  .finance-display-section {
+    .accounts-overview {
+      min-width: 320px;
+      .income, .expense, .balance {
+        min-width: 90px;
+        margin-right: 4%;
+        padding: 15px 8px;
+        position: relative;
+        h2 {
+          font-size: 0.8rem;
+        }
+        p {
+          padding: 4px;
+          position: absolute;
+          left: 0;
+          bottom: -20px;
+          font-size: 0.6rem;
+
+        }
+      }
+    }
+  }
 
   .monthly-breakdown {
     h2 {

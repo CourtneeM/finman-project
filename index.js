@@ -98,6 +98,18 @@ const userInputHandler = (() => {
       displayHandler.transactions();
     }
   });
+
+  const displayAddTransactionBtn = document.getElementById('display-add-transaction-btn');
+  const addTranscationSection = document.querySelector('.user-inputs');
+  displayAddTransactionBtn.addEventListener('click', () => {
+    addTranscationSection.style.display = 'flex';
+  });
+  
+  addTranscationSection.addEventListener('click', (e) => {
+    if (e.target.classList.contains('fa-window-close')) {
+      addTranscationSection.style.display = 'none';
+    }  
+  });
 })();
 
 const displayHandler = (() => {

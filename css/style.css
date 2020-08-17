@@ -12,7 +12,7 @@ header {
   align-items: center;
   background-color: #353434; }
   header h1 {
-    margin: 0 0 0 50px;
+    margin: 0 0 0 4%;
     padding: 20px 0;
     color: #eee; }
   header button {
@@ -41,12 +41,18 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: 70%;
   max-width: 375px;
   margin: 50px auto 0;
   padding: 40px 0 50px;
   background-color: #fff;
   border-radius: 8px; }
+  .user-inputs .fa-window-close {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px; }
   .user-inputs .transaction-selector, .user-inputs .amount-user-input, .user-inputs .description-user-input {
     width: 70%;
     max-width: 250px; }
@@ -65,7 +71,7 @@ main {
   flex-direction: column;
   width: 70%;
   max-width: 375px;
-  margin: 50px auto 0;
+  margin: 50px auto 40px;
   padding: 40px 0 50px;
   background-color: #fff;
   border-radius: 8px; }
@@ -108,8 +114,6 @@ main {
     display: flex;
     align-items: center;
     margin: 40px 5px; }
-    .finance-display-section .accounts-overview > div {
-      flex: 0 0 20%; }
     .finance-display-section .accounts-overview .display-date {
       flex-basis: 3%;
       margin: 0 5%;
@@ -122,6 +126,8 @@ main {
         font-size: 2.4rem;
         text-transform: capitalize; }
     .finance-display-section .accounts-overview .income, .finance-display-section .accounts-overview .expense, .finance-display-section .accounts-overview .balance {
+      flex: 0 0 20%;
+      min-width: 20%;
       margin-right: 4%;
       padding: 30px;
       position: relative;
@@ -186,8 +192,7 @@ main {
   .user-inputs {
     min-width: 200px; }
   .financial-years {
-    min-width: 200px;
-    margin-bottom: 40px; }
+    min-width: 200px; }
     .financial-years h2 {
       width: 200px; }
   .select-year-month, .financial-years {
@@ -207,8 +212,10 @@ main {
     .finance-display-section .accounts-overview .display-date h2:nth-child(1) {
       font-size: 1.4rem;
       text-transform: capitalize; }
-  .finance-display-section .accounts-overview .income h2, .finance-display-section .accounts-overview .expense h2, .finance-display-section .accounts-overview .balance h2 {
-    font-size: 1.4rem; } }
+  .finance-display-section .accounts-overview .income, .finance-display-section .accounts-overview .expense, .finance-display-section .accounts-overview .balance {
+    min-width: 130px; }
+    .finance-display-section .accounts-overview .income h2, .finance-display-section .accounts-overview .expense h2, .finance-display-section .accounts-overview .balance h2 {
+      font-size: 1.2rem; } }
 
 @media screen and (max-width: 860px) {
   .user-input-section {
@@ -256,7 +263,7 @@ main {
       margin-right: 4%; }
       .finance-display-section .accounts-overview .income h2, .finance-display-section .accounts-overview .expense h2, .finance-display-section .accounts-overview .balance h2 {
         margin: 10px;
-        font-size: 1.2rem; }
+        font-size: 1rem; }
       .finance-display-section .accounts-overview .income p, .finance-display-section .accounts-overview .expense p, .finance-display-section .accounts-overview .balance p {
         font-size: 0.8rem; }
     .finance-display-section .accounts-overview .balance {
@@ -273,23 +280,32 @@ main {
   header {
     padding: 0 10px; }
     header h1 {
+      margin-left: 1%;
       padding: 10px 0;
       font-size: 1.4rem; }
-    header button {
-      display: inline-block;
-      padding: 5px 10px;
-      color: #353434;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer; }
+    header .header-btns {
+      width: 210px; }
+      header .header-btns button {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.6rem;
+        color: #353434;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer; }
   main {
     flex-wrap: wrap; }
   .user-input-section {
     flex-basis: 100%;
-    min-width: 100%; }
+    min-width: 100%;
+    min-height: 100%; }
   .user-inputs {
+    display: none;
     flex-direction: row;
-    flex-wrap: wrap; }
+    flex-wrap: wrap;
+    margin-top: 15px; }
+    .user-inputs .fa-window-close {
+      display: block; }
     .user-inputs .select-year-month {
       flex-direction: row; }
       .user-inputs .select-year-month .select-financial-year {
@@ -302,12 +318,43 @@ main {
       margin-right: 15px; }
     .user-inputs button {
       flex-basis: 100%; }
-  .financial-years .select-year-month {
-    flex-direction: row; }
-    .financial-years .select-year-month .select-financial-year {
-      margin-bottom: 0; }
-  .financial-years #review-year {
-    display: none; }
+  .financial-years {
+    flex-direction: row;
+    align-items: center;
+    min-width: 90%;
+    margin: 15px auto;
+    padding: 10px 2px; }
+    .financial-years .select-year-month {
+      flex-direction: row;
+      flex-basis: 40%; }
+      .financial-years .select-year-month .select-financial-year {
+        width: 60px;
+        margin-bottom: 0; }
+      .financial-years .select-year-month .select-financial-month {
+        width: 100px; }
+    .financial-years h2 {
+      display: none; }
+    .financial-years button {
+      flex-basis: 40%;
+      margin-top: 0;
+      margin-right: 5px; }
+    .financial-years #review-year {
+      display: none; }
+  .finance-display-section .accounts-overview {
+    min-width: 320px; }
+    .finance-display-section .accounts-overview .income, .finance-display-section .accounts-overview .expense, .finance-display-section .accounts-overview .balance {
+      min-width: 90px;
+      margin-right: 4%;
+      padding: 15px 8px;
+      position: relative; }
+      .finance-display-section .accounts-overview .income h2, .finance-display-section .accounts-overview .expense h2, .finance-display-section .accounts-overview .balance h2 {
+        font-size: 0.8rem; }
+      .finance-display-section .accounts-overview .income p, .finance-display-section .accounts-overview .expense p, .finance-display-section .accounts-overview .balance p {
+        padding: 4px;
+        position: absolute;
+        left: 0;
+        bottom: -20px;
+        font-size: 0.6rem; }
   .monthly-breakdown h2 {
     font-size: 1.2rem; }
   .monthly-breakdown .income-breakdown p, .monthly-breakdown .expense-breakdown p {
