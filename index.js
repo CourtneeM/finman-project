@@ -421,14 +421,3 @@ function newFinancialYear(year) {
 
 newFinancialYear(2020);
 document.addEventListener('DOMContentLoaded', localStorageHandler.displayTransactions());
-window.addEventListener('resize', () => {
-  const userInputSection = document.querySelector('.user-inputs');
-  if (window.innerWidth > 700) {
-    userInputSection.classList.remove('displayNone');
-    userInputSection.classList.add('displayFlex')
-  }
-  if (window.innerWidth <= 700) {
-    userInputSection.classList.remove('displayFlex');
-    userInputSection.classList.add('displayNone');
-  }
-});
