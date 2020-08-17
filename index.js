@@ -102,12 +102,14 @@ const userInputHandler = (() => {
   const displayAddTransactionBtn = document.getElementById('display-add-transaction-btn');
   const addTranscationSection = document.querySelector('.user-inputs');
   displayAddTransactionBtn.addEventListener('click', () => {
-    addTranscationSection.style.display = 'flex';
+    addTranscationSection.classList.remove('displayNone');
+    addTranscationSection.classList.add('displayFlex');
   });
   
   addTranscationSection.addEventListener('click', (e) => {
     if (e.target.classList.contains('fa-window-close')) {
-      addTranscationSection.style.display = 'none';
+      addTranscationSection.classList.remove('displayFlex');
+      addTranscationSection.classList.add('displayNone');
     }  
   });
 })();
@@ -410,6 +412,16 @@ function newFinancialYear(year) {
 }
 
 document.addEventListener('DOMContentLoaded', localStorageHandler.displayTransactions());
+window.addEventListener('resize', () => {
+  const userInputSection = document.querySelector('.user-inputs');
+  if (window.innerWidth > 700) {
+    userInputSection.classList.remove('displayNone');
+    userInputSection.classList.add('displayFlex')
+  }
+  if (window.innerWidth <= 700) {
+    userInputSection.classList.remove('displayFlex');
+    userInputSection.classList.add('displayNone');
+  }
+});
 
-
-// responsive css
+// Fix error when submitting empty year month

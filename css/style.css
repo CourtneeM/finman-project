@@ -300,7 +300,6 @@ main {
     min-width: 100%;
     min-height: 100%; }
   .user-inputs {
-    display: none;
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 15px; }
@@ -360,3 +359,9 @@ main {
   .monthly-breakdown .income-breakdown p, .monthly-breakdown .expense-breakdown p {
     font-size: 1rem;
     flex-basis: 50%; } }
+
+.displayNone {
+  display: none; }
+
+.displayFlex {
+  display: flex; }

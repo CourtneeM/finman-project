@@ -409,7 +409,6 @@ main {
   }
 
   .user-inputs {
-    display: none;
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 15px;
@@ -500,4 +499,12 @@ main {
       }
     }
   }
+}
+
+.displayNone {
+  display: none;
+}
+
+.displayFlex {
+  display: flex;
 }
