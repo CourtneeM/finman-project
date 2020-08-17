@@ -72,6 +72,9 @@ const userInputHandler = (() => {
     localStorageHandler.saveTransactions(year.value, month.value, transactionType, amount.value, description.value);
     finances[year.value][month.value][transactionType](Number(amount.value), description.value);
 
+    displayHandler.monthYear();
+    displayHandler.transactions();
+
     amount.value = "";
     description.value = "";
   });
@@ -99,13 +102,18 @@ const userInputHandler = (() => {
     }
   });
 
-  const displayAddTransactionBtn = document.getElementById('display-add-transaction-btn');
   const addTranscationSection = document.querySelector('.user-inputs');
-  displayAddTransactionBtn.addEventListener('click', () => {
-    addTranscationSection.classList.remove('displayNone');
-    addTranscationSection.classList.add('displayFlex');
+  const headerBtns = document.querySelector('.header-btns');
+  headerBtns.addEventListener('click', (e) => {
+    if (e.target.id === 'display-add-transaction-btn') {
+      addTranscationSection.classList.remove('displayNone');
+      addTranscationSection.classList.add('displayFlex');
+    }
+    if (e.target.id === 'review-year-header-btn') {
+      displayHandler.reviewYear();
+    }
   });
-  
+
   addTranscationSection.addEventListener('click', (e) => {
     if (e.target.classList.contains('fa-window-close')) {
       addTranscationSection.classList.remove('displayFlex');
@@ -273,7 +281,6 @@ const localStorageHandler = (() => {
     let localFinances = {};
     if (localStorage.getItem('localFinances') === null) {
       localFinances = {};
-      newFinancialYear(2020);
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
       for (let month in localFinances[year]) {
@@ -303,6 +310,7 @@ const localStorageHandler = (() => {
     let localFinances = {};
     if (localStorage.getItem('localFinances') === null) {
       localFinances = {};
+
     } else {
       localFinances = JSON.parse(localStorage.getItem('localFinances'));
       newFinancialYear(2020);
@@ -411,6 +419,7 @@ function newFinancialYear(year) {
   });
 }
 
+newFinancialYear(2020);
 document.addEventListener('DOMContentLoaded', localStorageHandler.displayTransactions());
 window.addEventListener('resize', () => {
   const userInputSection = document.querySelector('.user-inputs');
@@ -423,5 +432,3 @@ window.addEventListener('resize', () => {
     userInputSection.classList.add('displayNone');
   }
 });
-
-// Fix error when submitting empty year month
